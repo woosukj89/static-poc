@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import todosData from '../../data/todos.json';
 
 interface HomeProps {
   initialTodos: string[];
@@ -34,12 +32,9 @@ export default function Home({ initialTodos }: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'content', 'todos.md');
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { data } = matter(fileContents);
   return {
     props: {
-      initialTodos: data.todos as string[],
+      initialTodos: todosData.todos,
     },
   };
 }
